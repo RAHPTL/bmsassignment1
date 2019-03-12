@@ -1,77 +1,84 @@
-document.addEventListener('DOMContentLoaded', init);
-function init() {
-    var selectors = {
+(function (window, document){
+    'use strict';
+    window.app = {};
+
+    app.selectors = {
         checkBtn: document.getElementById('check'),
         inputVal: document.getElementById('input-number'),
         result: document.getElementById('result'),
         unique: document.getElementById('unique'),
-        duplicate: document.getElementById('duplicate'),
+        duplicate: document.getElementById('duplicate')
     }
 
-    var ds = {
+    app.ds = {
         numData: [],
         duplicate: [],
         unique: []
     }
 
-    selectors.checkBtn.addEventListener('click', handleButton);
-    function handleButton() {
-        var inputVal = selectors.inputVal.value;
+    app.init = function(){
+        console.log("INIT");
+        app.selectors.checkBtn.addEventListener('click', app.handleButton);
+    }
+
+    app.handleButton = function() {
+        var inputVal = app.selectors.inputVal.value;
         if (!inputVal) { alert("Please Enter a Number or a Range"); return; }
         if (/,/gm.test(inputVal)) {
             var numbers = inputVal.split(',');
             numbers.forEach(function (chunk) {
-                processVal(chunk);
+                app.processVal(chunk);
             });
         } else {
-            processVal(inputVal);
+            app.processVal(inputVal);
         }
-        ds.unique = getUnique();
-        updateUI();
+        app.ds.unique = app.getUnique();
+        app.updateUI();
     }
 
-    function updateUI() {
-        selectors.result.innerText = ds.numData.toString();
+    app.updateUI = function() {
+        app.selectors.result.innerText = app.ds.numData.toString();
 
-        if (ds.unique.length > 0) {
-            selectors.unique.innerText = ds.unique.toString();
+        if (app.ds.unique.length > 0) {
+            app.selectors.unique.innerText = app.ds.unique.toString();
         } else {
-            selectors.unique.innerText = "Unique Will Show Here";
+            app.selectors.unique.innerText = "Unique Will Show Here";
         }
-        if (ds.duplicate.length > 0) {
-            selectors.duplicate.innerText = ds.duplicate.toString();
+        if (app.ds.duplicate.length > 0) {
+            app.selectors.duplicate.innerText = app.ds.duplicate.toString();
         } else {
-            selectors.duplicate.innerText = "Duplicate Will show here";
+            app.selectors.duplicate.innerText = "Duplicate Will show here";
         }
     }
 
-    //function to get ds.duplicates from single / multiple input
-    function processVal(data) {
+    app.processVal = function(data) {
         if (/\-/gm.test(data)) {
             var range = data.split("-");
             var min = parseInt(range[0]);
             var max = parseInt(range[1]);
             for (var i = min; i <= max; i++) {
-                if (ds.numData.indexOf(i) >= 0) {
-                    ds.duplicate.push(i);
+                if (app.ds.numData.indexOf(i) >= 0) {
+                    app.ds.duplicate.push(i);
                 } else {
-                    ds.numData.push(i);
+                    app.ds.numData.push(i);
                 }
             }
         } else {
             var num = parseInt(data);
-            var i = ds.numData.indexOf(num);
+            var i = app.ds.numData.indexOf(num);
             if (i >= 0) {
-                ds.duplicate.push(num);
+                app.ds.duplicate.push(num);
             } else {
-                ds.numData.push(num);
+                app.ds.numData.push(num);
             }
         }
     }
-    //compar with data and get ds.unique values
-    function getUnique() {
-        return ds.numData.filter(function (n) {
-            return ds.duplicate.indexOf(n) === -1;
+
+    app.getUnique = function() {
+        return app.ds.numData.filter(function (n) {
+            return app.ds.duplicate.indexOf(n) === -1;
         });
     }
-}
+
+    app.init();
+})(window,document);
