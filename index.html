@@ -4,116 +4,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Assignment 1</title>
-        <style>
-            *{
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                border: none;
-                outline: none;
-                word-wrap: break-word;
-            }
-
-            html,body{
-                height: 100%;
-                background-color: #2C3E50;
-            }
-
-            .wrapper{
-                display: flex;
-                height: 100%;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .form-wrap{
-                max-width: 300px;
-                flex:1 0 300px;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-            }
-
-            .input__box,
-            .input__button{
-                display: block;
-                width: 100%;
-                padding: 10px;
-                background-color: #ECF0F1;
-                color: #2C3E50;
-                font-size: 16px;
-                text-transform: capitalize;
-            }
-
-            .input__box{
-                border-bottom: 1px solid blue;
-                margin-bottom: 20px;
-            }
-
-            .display__box{
-                padding: 20px;
-                margin: 20px 0;
-                background-color: #ECF0F1;
-                color: #2C3E50;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="wrapper">
             <div class="form-wrap">
-                <div id="data" class="display__box"></div>
                 <input type="text" class="input__box" id="input-number" placeholder="Enter Number or Range">
                 <input type="button" class="input__button" value="check" id="check">
-                <div id="result" class="display__box">Result Will Show Here</div>
+                <div class="result-wrap active">
+                    <div class="display__box--title">Data</div>
+                    <div id="result" class="display__box">Result Will Show Here</div>
+                    <div class="display__box--title">unique</div>
+                    <div id="unique" class="display__box">Unique Will Show Here</div>
+                    <div class="display__box--title">duplicate</div>
+                    <div id="duplicate" class="display__box">Duplicate Will show here</div>
+                </div>
             </div>
         </div>
-
-        <script>
-            // Run script after dom has loaded
-            document.addEventListener('DOMContentLoaded',function(){
-                var numData = [100,101,102,103,104,105,106,107,108,109,110];
-                var duplicate = [];
-                document.getElementById('data').innerText = numData.toString();
-                // add click event listener to check button
-                var checkBtn = document.getElementById('check');
-                checkBtn.addEventListener('click',function(){
-                    var inputVal = document.getElementById('input-number').value;
-                    if(!inputVal){ alert("Please Enter a Number or a Range"); return; }
-                    // check if its single input or multiple input
-                    if (/,/gm.test(inputVal)) {
-                        var numbers = inputVal.split(',');
-                        numbers.forEach(function(chunk){
-                            processVal(chunk);
-                        });
-                    }else{
-                        processVal(inputVal);
-                    }
-                    var unique = getUnique();
-                    document.getElementById('result').innerText = unique.toString();
-                });
-
-                //function to get duplicates from single / multiple input
-                var processVal = function(data){
-                    if(/\-/gm.test(data)){
-                        var range = data.split("-");
-                        var min = parseInt(range[0]);
-                        var max = parseInt(range[1]);
-                        var duplicateNums = numData.filter(num => num >= min && num <= max);
-                        duplicate = duplicate.concat(duplicateNums);
-                    }else{
-                        var num = parseInt(data);
-                        var i = numData.indexOf(num);
-                        if( i >= 0 ) duplicate.push(num);
-                    }
-                }
-
-                //compar with data and get unique values
-                var getUnique = function(){
-                    return numData.filter(function (n) {
-                        return duplicate.indexOf(n) === -1;
-                    });
-                }
-            });
-        </script>
+        <script src="app.js"></script>
     </body>
 </html>

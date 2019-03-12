@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    border: none;
+    outline: none;
+    word-wrap: break-word;
+}
+
+html,body{
+    height: 100%;
+    background-color: #2C3E50;
+}
+
+.wrapper{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+       -moz-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.form-wrap{
+    max-width: 400px;
+    -webkit-box-flex:1;
+    -webkit-flex:1 0;
+       -moz-box-flex:1;
+        -ms-flex:1 0;
+            flex:1 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+       -moz-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+       -moz-box-orient: vertical;
+       -moz-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+
+.input__box,
+.input__button{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #ECF0F1;
+    color: #2C3E50;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+.input__box{
+    border-bottom: 1px solid blue;
+    margin-bottom: 20px;
+}
+
+.display__box{
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #ECF0F1;
+    color: #2C3E50;
+}
+
+.result-wrap{
+    margin-top: 30px;
+    display: none;
+}
+
+.result-wrap.active{display: block;}
+
+.display__box--title{color: #ECF0F1;text-transform: capitalize;}
